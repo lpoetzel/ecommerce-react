@@ -11,6 +11,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/categories" element={<Categories/>} />
+          <Route path="*" element={"this page doesnt exist"} />
         </Routes>
       </Router>
     </div>
