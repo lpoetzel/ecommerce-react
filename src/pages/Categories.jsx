@@ -1,8 +1,10 @@
 import React from 'react';
 import { useEffect } from 'react';
+import { useState } from 'react';
 import axios from "axios";
 import { CategoriesList } from '../components/categories-list';
 import { CategoriesItem } from '../components/categories-list/category-item';
+
 
 const data = [
   {
@@ -33,14 +35,28 @@ const data = [
 ];
 
 export const Categories = () => {
-  axios
-    .get("https://api.escuelajs.co/api/v1/categories")
-    .then((response) => console.log(response))
-    .catch((error) => console.log(error,"error"));
-    return (
+  const [categoriesResp, setCategoriesResp] = useState([]);
+  const [errorResp, setErrorResp] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    axios
+      .get(`https://api.escuelajs.co/api/v1/categories`)
+      .then((response) => setCategoriesResp(response))
+      .catch((error) => setErrorResp(error, "error"))
+      .finally(() => setIsLoading(false));
+  }, []);
+  console.log("isLoading: ", isLoading);
+  if (isLoading) {
+    return <h2>request is still in process, loading..</h2>;
+  }
+  if (errorResp) {
+    console.log("error: ", errorResp);
+    return <h2>an error has occurred, please contact the support</h2>;
+  }
+  return (
       <div>
-        <CategoriesList data={data}/>
-        <CategoriesItem/>
+        <CategoriesList data={categoriesResp.data}/>
+        <CategoriesItem/> 
       </div>
     );
   };
