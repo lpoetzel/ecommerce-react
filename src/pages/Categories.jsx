@@ -1,20 +1,15 @@
 import React from 'react'
-
-const Categories = () => {
-  return (
-    <div>
-        <ul>
-            <li>
-                <b>file name:</b> Categories.jsx
-            </li>
-            <li>
-                <b>component name:</b> Categories
-            </li>
-        </ul>
+import { CategoriesList } from '../components/categories-list';
+import { CategoriesItem } from '../components/categories-list/category-item';
 
 
-    </div>
-  )
-}
+export const Categories = () => {
+    return (
+      <div>
+        <CategoriesList/>
+        <CategoriesItem/>
+      </div>
+    );
+  };
 
 export default Categories

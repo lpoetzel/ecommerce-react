@@ -13,8 +13,6 @@ const Home = () => {
                 <b>component name:</b> Home
             </li>
         </ul>
-
-
     </div>
   )
 }
