@@ -4,7 +4,7 @@ import { useState } from 'react';
 import axios from "axios";
 import { CategoriesList } from '../components/categories-list';
 import { CategoriesItem } from '../components/categories-list/category-item';
-
+import { useFetch } from '../hooks/useFetch';
 
 const data = [
   {
@@ -35,17 +35,9 @@ const data = [
 ];
 
 export const Categories = () => {
-  const [categoriesResp, setCategoriesResp] = useState([]);
-  const [errorResp, setErrorResp] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    axios
-      .get(`https://api.escuelajs.co/api/v1/categories`)
-      .then((response) => setCategoriesResp(response))
-      .catch((error) => setErrorResp(error, "error"))
-      .finally(() => setIsLoading(false));
-  }, []);
-  console.log("isLoading: ", isLoading);
+  const [categoriesResp, errorResp, isLoading] = useFetch(
+    `https://api.escuelajs.co/api/v1/categories`
+  );
   if (isLoading) {
     return <h2>request is still in process, loading..</h2>;
   }
