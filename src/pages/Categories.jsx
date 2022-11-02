@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from "axios";
 import { CategoriesList } from '../components/categories-list';
-import { CategoriesItem } from '../components/categories-list/category-item';
+import { CategoryItem } from '../components/categories-list/category-item';
 import { useFetch } from '../hooks/useFetch';
 
 const data = [
@@ -46,11 +46,14 @@ export const Categories = () => {
     return <h2>an error has occurred, please contact the support</h2>;
   }
   return (
-      <div>
-        <CategoriesList data={categoriesResp.data}/>
-        <CategoriesItem/> 
-      </div>
-    );
-  };
+    <div>
+      <CategoriesList>
+        {categoriesResp.data.map(({ id, name, image }, index) => (
+          <CategoryItem key={id || index} name={name} image={image} />
+        ))}
+      </CategoriesList>
+    </div>
+);
 
+};
 export default Categories
